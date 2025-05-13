@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: desafio_tecnico
+    environment:
+      POSTGRES_USER: desafio_tecnico_user
+      POSTGRES_PASSWORD: desafiotecnico123
+      POSTGRES_DB: desafio_tecnico
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    restart: no 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U desafio_tecnico_user -d desafio_tecnico"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-network:
+    driver: bridge
